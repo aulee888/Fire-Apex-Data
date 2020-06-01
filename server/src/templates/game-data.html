@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Game Data</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- Must call listings func instead of having listings be a list of fields -->
+        {% for field in form.listings() %}
+        <p>
+            <b>{{ field.label }}</b><br>
+            {{ field }}<br>  <!-- Size removed for dropdown menu -->
+
+            {% for error in field.errors %}
+            <span style="color: red;">*{{ error }}</span>
+            {% endfor %}
+        </p>
+        {% endfor %}
+
+        <p>{{ form.submit() }}</p>
+
+    </form>
+{% endblock %}

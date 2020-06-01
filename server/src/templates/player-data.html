@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Player Data</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- Must call listings func instead of having listings be a list of fields -->
+        {% for field in form.listings() %}
+        <p>
+            {% if field not in [form.time] %}  <!-- Placeholder to keep listings pattern -->
+                <b>{{ field.label }}</b><br>
+                <!-- size removed; will not result in a dropdown menu for a SelectField -->
+                {{ field }}<br>
+
+                {% for error in field.errors %}
+                <span style="color: red;">*{{ error }}</span>
+                {% endfor %}
+
+            {% else %}
+                <!-- Survival Time made different by the fact that I want to include minutes and seconds on the same line -->
+                <b>Survival Time</b><br>
+                {{ form.minutes(size=2) }} : {{ form.seconds(size=2) }}<br>
+
+                {% for error in form.minutes.errors %}
+                <span style="color: red;">*{{ error }}<br></span>
+                {% endfor %}
+
+                {% for error in form.seconds.errors %}
+                <span style="color: red;">*{{ error }}<br></span>
+                {% endfor %}
+
+            {% endif %}
+        </p>
+        {% endfor %}
+
+        <p>{{ form.submit() }}</p>
+
+    </form>
+{% endblock %}

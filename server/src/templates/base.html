@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Apex - {{ title }}</title>
+    </head>
+    <body>
+        <div>
+            <!-- url_for must designate the function name in routes.py and not the url suffix -->
+            <a href="{{ url_for('gameData') }}">Game Stats</a>
+            <a href="{{ url_for('playerData') }}">Player Stats</a>
+            <hr>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <u1>
+            {% for msg in messages %}
+            <l1>{{ msg }}</l1><br>
+            {% endfor %}
+        </u1>
+        {% endif %}
+        {% endwith %}
+
+        {%block content %}{% endblock %}
+    </body>
+</html>
