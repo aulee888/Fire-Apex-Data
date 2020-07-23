@@ -1,0 +1,24 @@
+/* Returns a count of weapons used from all games */
+
+  WITH weapons_list AS (
+SELECT CASE
+       WHEN weapon1 IS NULL THEN 'Fists'
+       WHEN weapon1 = '' THEN 'Fists'
+       ELSE weapon1
+       END AS 'weapon'
+  FROM player_stats
+
+ UNION ALL
+
+SELECT CASE
+       WHEN weapon2 IS NULL THEN 'Fists'
+       WHEN weapon2 = '' THEN 'Fists'
+       ELSE weapon2
+       END AS 'weapon'
+  FROM player_stats)
+
+SELECT weapon, COUNT(weapon) AS 'count'
+  FROM weapons_list
+ GROUP BY weapon
+ ORDER BY COUNT(weapon) ASC
+ 

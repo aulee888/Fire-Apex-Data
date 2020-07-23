@@ -1,0 +1,3 @@
+SELECT legend, SUM(kills) kills, SUM(damage) damage, SUM(revives) revives, SUM(respawns) respawns
+  FROM player_stats
+ GROUP BY legend

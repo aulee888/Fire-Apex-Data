@@ -1,0 +1,15 @@
+  WITH weapon_stats AS (
+       SELECT weapon1 weapon, kills, damage
+       FROM player_stats
+
+       UNION ALL
+
+       SELECT weapon2 weapon, kills, damage
+       FROM player_stats)
+
+SELECT weapon, SUM(kills) kills, SUM(damage) damage
+  FROM weapon_stats
+ WHERE weapon IS NOT NULL
+ GROUP BY weapon
+ ORDER BY SUM(damage) DESC
+ LIMIT 10;

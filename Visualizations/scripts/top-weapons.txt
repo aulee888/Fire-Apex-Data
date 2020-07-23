@@ -1,0 +1,30 @@
+/* Returns a count of weapons used from games placed higher than 5 */
+
+  WITH weapons_list AS (
+SELECT CASE
+       WHEN ply.weapon1 IS NULL THEN 'Fists'
+       WHEN ply.weapon1 = '' THEN 'Fists'
+       ELSE ply.weapon1
+       END AS 'weapon'
+  FROM game_stats
+       LEFT JOIN player_stats ply
+       ON game_stats.id = ply.game_id
+ WHERE game_stats.placement < 6
+
+ UNION ALL
+
+SELECT CASE
+       WHEN ply.weapon2 IS NULL THEN 'Fists'
+       WHEN ply.weapon2 = '' THEN 'Fists'
+       ELSE ply.weapon2
+       END AS 'weapon'
+  FROM game_stats
+       LEFT JOIN player_stats ply
+       ON game_stats.id = ply.game_id
+ WHERE game_stats.placement < 6)
+
+SELECT weapon, COUNT(weapon) AS 'count'
+  FROM weapons_list
+ GROUP BY weapon
+ ORDER BY COUNT(weapon) DESC
+ 

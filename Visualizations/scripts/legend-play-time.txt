@@ -1,0 +1,12 @@
+WITH survival_time AS (SELECT legend,
+            CASE WHEN substr(time, 1, 1) = '0' THEN substr(time, -2, 2)
+            ELSE 
+                 CASE WHEN substr(time, 2, 1) = ':' THEN substr(time, 1, 1) * 60 + substr(time, -2, 2)
+                 ELSE substr(time, 1, 2) * 60 + substr(time, -2, 2)
+                 END
+            END play_time
+       FROM player_stats)
+
+SELECT legend, SUM(play_time) total_time, AVG(play_time) avg_time
+  FROM survival_time
+ GROUP BY legend

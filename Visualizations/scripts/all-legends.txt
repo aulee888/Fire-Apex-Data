@@ -1,0 +1,3 @@
+SELECT legend, COUNT(legend) count
+  FROM player_stats
+ GROUP BY legend
